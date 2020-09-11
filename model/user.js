@@ -1,13 +1,13 @@
-/*
- * @Date: 2020-09-03 19:34:05
- * @LastEditors: yangdong
- * @LastEditTime: 2020-09-04 15:41:05
- */
-//model/user.js
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
+
 //定义数据类型
 const userSchema = new Schema({
+	userId: {
+		type: Number,
+		default: 0,
+		require: true
+	},
 	username: {
 		type: String,
 		require: true
@@ -20,9 +20,17 @@ const userSchema = new Schema({
 		type: String,
 		require: true
 	},
-	isAdmin: {
-		type: Boolean, //是否是管理员
-		default: false //默认false 管理员身份修改数据库即可
+	roles: {
+		type: Array,
+		require: true
+	},
+	avatar: {
+		type: String,
+		default: "https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif"
+	},
+	introduction: {
+		type: String,
+		default: ""
 	},
 	date: {
 		type: Date,
