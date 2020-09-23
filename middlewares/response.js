@@ -22,11 +22,17 @@ function errorHandler(ctx, next) {
 		if (err.code == null) {
 			logger.error(err.stack);
 		}
-
-		ctx.body = {
-			code: err.code || -1,
-			message: err.message.trim()
-		};
+		if (err.name === "TokenExpiredError") {
+			ctx.body = {
+				code: 50003,
+				message: err.message.trim()
+			};
+		} else {
+			ctx.body = {
+				code: err.code || -1,
+				message: err.message.trim()
+			};
+		}
 
 		ctx.status = 200; // 保证返回状态是 200, 这样前端不会抛出异常
 		return Promise.resolve();

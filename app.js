@@ -8,6 +8,7 @@ const mongoose = require("mongoose");
 const staticFiles = require("koa-static");
 const path = require("path");
 const config = require("./config");
+const jwt = require("koa-jwt");
 const router = require("./router");
 const app = new Koa();
 const { loggerMiddleware } = require("./middlewares/logger");
@@ -23,6 +24,12 @@ app.use(staticFiles(path.join(__dirname, "./public")));
 
 //路由
 app.use(router.routes()).use(router.allowedMethods());
+// 排除验证token的路由
+app.use(
+	jwt({ secret: config.secret }).unless({
+		path: [/\/login$/, /\/register$/, /\/report$/]
+	})
+);
 
 // 定制相应内容
 app.use(responseHandler);

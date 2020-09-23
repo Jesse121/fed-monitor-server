@@ -1,6 +1,6 @@
 "use strict";
 
-const { sign } = require("jsonwebtoken");
+const jsonwebtoken = require("jsonwebtoken");
 const config = require("../config");
 const userModel = require("../model/user");
 const counterModel = require("../model/counter");
@@ -18,7 +18,8 @@ const user = {
 		} else {
 			//验证密码是否正确
 			const result = await userModel.find({ username, password: ctx.request.body.password });
-			const token = sign({ username }, config.secret, { expiresIn: "1h" });
+			const token = jsonwebtoken.sign({ username }, config.secret, { expiresIn: 36000 });
+
 			if (result.length > 0) {
 				//返回用户信息
 				ctx.result = {
