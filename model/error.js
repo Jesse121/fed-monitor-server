@@ -11,13 +11,22 @@ const errorSchema = new Schema({
 		type: String,
 		default: ""
 	},
-	msg: {
-		type: String,
-		default: ""
-	},
-	resourceUrl: {
-		type: String,
-		default: ""
+	data: {
+		type: Object,
+		default: {
+			url: {
+				type: String,
+				default: ""
+			},
+			msg: {
+				type: String,
+				default: ""
+			},
+			stack: {
+				type: String,
+				default: ""
+			}
+		}
 	}
 });
 module.exports = mongoose.model("Error", errorSchema);

@@ -43,8 +43,7 @@ const report = async (ctx, next) => {
 			const newErrorData = new errorModel({
 				time: item.time,
 				type: item.type,
-				msg: item.msg,
-				resourceUrl: item.data.resourceUrl
+				data: item.data
 			});
 			await newErrorData
 				.save()

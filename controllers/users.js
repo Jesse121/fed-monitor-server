@@ -5,11 +5,11 @@ const config = require("../config");
 const userModel = require("../model/user");
 const counterModel = require("../model/counter");
 
-const user = {
+const users = {
 	login: async (ctx, next) => {
 		const username = ctx.request.body.username;
 		const findResult = await userModel.find({ username });
-		if (findResult.length == 0) {
+		if (findResult.length === 0) {
 			ctx.status = 404;
 			ctx.body = {
 				status: 404,
@@ -23,7 +23,7 @@ const user = {
 			if (result.length > 0) {
 				//返回用户信息
 				ctx.result = {
-					accessToken: token,
+					token: token,
 					userId: result[0].userId
 				};
 			} else {
@@ -99,4 +99,4 @@ const user = {
 	}
 };
 
-module.exports = user;
+module.exports = users;

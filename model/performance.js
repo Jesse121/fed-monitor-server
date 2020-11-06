@@ -48,5 +48,4 @@ const performanceSchema = new Schema({
 		default: 0
 	}
 });
-//基于数据结构创建一个叫User的表(首字母大写) 数据库中自动生成叫users
 module.exports = mongoose.model("Performance", performanceSchema);
