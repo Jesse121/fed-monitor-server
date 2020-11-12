@@ -14,6 +14,14 @@ const app = new Koa();
 const { loggerMiddleware } = require("./middlewares/logger");
 const { errorHandler, responseHandler } = require("./middlewares/response");
 
+//对上报发送的数据单独处理
+app.use(async function (ctx, next) {
+	if (/^.*\/report\/.+$/.test(ctx.path)) {
+		ctx.disableBodyParser = true;
+	}
+	await next();
+});
+
 //中间件
 app.use(loggerMiddleware);
 app.use(bodyParser());

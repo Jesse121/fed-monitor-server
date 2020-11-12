@@ -19,7 +19,9 @@ router.post("/dashboard/addNewProject", controllers.dashboard.addNewProject);
 router.post("/report", controllers.report);
 
 //读取监控数据
-router.get("/performance/getPerformance", controllers.performance.getPerformance);
-router.get("/getError", controllers.error);
+router.get("/performance/getPagePerformance", controllers.performance.getPagePerformance);
+router.get("/performance/getApiPerformance", controllers.performance.getApiPerformance);
+router.get("/error/getErrorData", controllers.error.getErrorData);
+router.get("/error/getErrorDetail", controllers.error.getErrorDetail);
 
 module.exports = router;

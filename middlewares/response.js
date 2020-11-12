@@ -5,6 +5,7 @@ const { logger } = require("./logger");
 // 这个middleware用于将ctx.result中的内容最终回传给客户端
 // 回传的格式遵循这样的格式：{ code: 0, data: any }
 function responseHandler(ctx) {
+	// console.log("result", ctx.result);
 	if (ctx.result !== undefined) {
 		ctx.type = "json";
 		ctx.body = {
