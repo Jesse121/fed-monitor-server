@@ -1,0 +1,31 @@
+version: "3"
+
+services:
+  database:
+    image: mongo
+    container_name: fed-monitor-mongo
+    restart: unless-stopped #在容器退出时总是重启容器，但是不考虑在Docker守护进程启动时就已经停止了的容器
+    env_file: ./.env
+    environment: #容器内部默认的设置
+      MONGO_INITDB_ROOT_USERNAME: $MONGODB_USERNAME
+      MONGO_INITDB_ROOT_PASSWORD: $MONGODB_PASSWORD
+    ports:
+      - 27017:27017
+    volumes:
+      - D:/ProgramData/mongodb/data/db:/data/db
+    command: [--auth] # 指定需要认证，mongdb默认是无认证的
+    networks:
+      - webapp-network
+  app:
+    build: . # 相当于 docker build .
+    container_name: fed-monitor-server
+    restart: unless-stopped
+    ports:
+      - 9000:9000
+    depends_on:
+      - database
+    networks:
+      - webapp-network
+networks:
+  webapp-network:
+    driver: bridge
