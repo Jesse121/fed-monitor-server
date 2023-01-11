@@ -12,20 +12,22 @@ services:
     ports:
       - 27017:27017
     volumes:
-      - D:/ProgramData/mongodb/data/db:/data/db
-    command: [--auth] # 指定需要认证，mongdb默认是无认证的
-    networks:
-      - webapp-network
+      - ./db:/data/db
   app:
     build: . # 相当于 docker build .
     container_name: fed-monitor-server
     restart: unless-stopped
+    env_file: ./.env
+    environment:
+      - MONGODB_HOST=database
+      - MONGODB_USERNAME=$MONGODB_USERNAME
+      - MONGODB_PASSWORD=$MONGODB_PASSWORD
+      - MONGODB_DATABASE_NAME=$MONGODB_DATABASE_NAME
+      - MONGODB_PORT=$MONGODB_PORT
     ports:
       - 9000:9000
     depends_on:
       - database
-    networks:
-      - webapp-network
-networks:
-  webapp-network:
-    driver: bridge
+    stdin_open: true # docker run -i
+    tty: true # docker run -t
+

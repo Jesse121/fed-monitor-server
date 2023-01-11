@@ -3,7 +3,7 @@ node_modules
 /public
 /logs
 
-
+db
 # local env files
 .env.local
 .env.*.local
